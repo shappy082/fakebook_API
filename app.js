@@ -16,6 +16,7 @@ const connectDB = require('./config/db')
 
 const userRoute = require('./routes/userRoute');
 const postRoute = require('./routes/postRoute');
+const commentRoute = require('./routes/commentRoute');
 
 const app = express();
 
@@ -57,6 +58,7 @@ app.use(passport.initialize());
 
 app.use('/api/user', userRoute);
 app.use('/api/post', postRoute);
+app.use('/comment', commentRoute);
 
 app.use(errorHandler);
 

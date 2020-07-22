@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const Post = require('./postModel');
 
 const schema = new Schema({
-    message : { type: String, required: true},
-    likeCounts : { type: Number , default: 0 },
-    user : { type: String, required: true},
-    createdDate : { type: Date, default: Date.now },
-    post : { type : Schema.Types.ObjectId, ref : 'Post'}
-},{
-  collection: 'comments'
+  user_id: { type: Number, required: true },
+  img: { type: String, default: "" },
+  comment: { type: String, required: true },
+  time_stamp: { type: Date, default: Date.now },
+  count_like: { type: Number, default: 0 },
+  reply: { type: Array }
+}, {
+  collection: 'Comment'
 });
 
 const comment = mongoose.model('Comment', schema);

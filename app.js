@@ -16,6 +16,7 @@ const connectDB = require('./config/db')
 
 const userRoute = require('./routes/userRoute');
 const postRoute = require('./routes/postRoute');
+const userFaceRoute = require('./routes/userFaceRoute');
 
 const app = express();
 
@@ -55,8 +56,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 //init passport
 app.use(passport.initialize());
 
-app.use('/api/user', userRoute);
-app.use('/api/post', postRoute);
+// app.use('/api/user', userRoute);
+// app.use('/api/post', postRoute);
+app.use('/singin', userFaceRoute);
 
 app.use(errorHandler);
 

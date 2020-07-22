@@ -10,7 +10,7 @@ git clone https://github.com/shappy082/fakebook_API.git
 
 ```
 PORT = 3000
-MONGODB_URI = mongodb://127.0.0.1:27017/fakebook
+MONGODB_URI = mongodb://baac.topwork.asia:27017/alpha
 DOMAIN = localhost
 JWT_SECRET = baac@123
 ```

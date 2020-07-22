@@ -23,7 +23,7 @@ const app = express();
 if (process.env.NODE_ENV === 'development') {
     app.use(logger('dev'))
 }
-console.log("test")
+
 app.use(logger('dev'))
 app.use(logHandler);
 

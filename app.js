@@ -16,8 +16,8 @@ const connectDB = require('./config/db')
 
 const userRoute = require('./routes/userRoute');
 const postRoute = require('./routes/postRoute');
+const userFaceRoute = require('./routes/userFaceRoute');
 const commentRoute = require('./routes/commentRoute');
-
 const app = express();
 
 //console.log(process.env);
@@ -52,10 +52,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 //'./public'
 app.use(express.static(path.join(__dirname, 'public')));
-
 //init passport
 app.use(passport.initialize());
 
+// app.use('/api/user', userRoute);
+// app.use('/api/post', postRoute);
+app.use('/singin', userFaceRoute);
 app.use('/api/user', userRoute);
 app.use('/api/post', postRoute);
 app.use('/comment', commentRoute);

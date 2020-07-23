@@ -4,6 +4,7 @@ const commentController = require('../controllers/commentController')
 const postController = require('../controllers/postController')
 
 router.post('/insert', commentController.insertComment)
+router.post('/delete', commentController.deleteComment)
 router.get('/find/:user_id', commentController.findUserComment)
 //GET localhost:3000/api/post/xxxxxxxxxxx
 // router.get('/:id', postController.getPostById)

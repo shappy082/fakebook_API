@@ -1,5 +1,5 @@
 const config = require('../config/index');
-const User = require('../models/userModel');
+const User = require("../models/userFaceModel")
 const passport = require('passport');
 
 const JwtStrategy = require('passport-jwt').Strategy,
@@ -11,13 +11,13 @@ opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 
 passport.use(new JwtStrategy(opts, async (jwt_payload, done) => {
     try {
-        
-       const user = await User.findById(jwt_payload.id); 
-       if (!user) {
-        return done(new Error('Connot find this user'), false);
-       }
+        const user = await User.findById(jwt_payload.id);
+        console.log("found", user)
+        if (!user) {
+            return done(new Error('Connot find this user'), false);
+        }
 
-       return done(null, user);
+        return done(null, user);
 
     } catch (error) {
         done(error);

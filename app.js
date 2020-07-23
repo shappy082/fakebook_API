@@ -14,14 +14,11 @@ const { errorHandler } = require('./middleware/errorHandler');
 const config = require('./config/index');
 const connectDB = require('./config/db')
 
-const userRoute = require('./routes/userRoute');
-const postRoute = require('./routes/postRoute');
-<<<<<<< HEAD
+// const userRoute = require('./routes/userRoute');
+// const postRoute = require('./routes/postRoute');
 const friendReqRoute = require('./routes/friendReqRoute');
-=======
 const userFaceRoute = require('./routes/userFaceRoute');
 const commentRoute = require('./routes/commentRoute');
->>>>>>> 4d527fa0d0aaf793126733fe9342984e01874f72
 const app = express();
 
 //console.log(process.env);
@@ -33,7 +30,6 @@ app.use(logger('dev'))
 app.use(logHandler);
 
 connectDB(); 
-
 /*
 // connect to local database
 mongoose.connect(config.MONGODB_URI, {
@@ -62,15 +58,10 @@ app.use(passport.initialize());
 // app.use('/api/user', userRoute);
 // app.use('/api/post', postRoute);
 app.use('/signin', userFaceRoute);
-app.use('/api/user', userRoute);
-app.use('/api/post', postRoute);
 app.use('/friend', friendReqRoute);
 app.use('/comment', commentRoute);
 
 app.use(errorHandler);
-
-
-
 
 app.listen(config.PORT, console.log(`Server running in ${process.env.NODE_ENV} mode on port ${config.PORT}`));
 

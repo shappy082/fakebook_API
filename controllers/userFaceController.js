@@ -1,17 +1,9 @@
-const { validationResult } = require('express-validator');
 const config = require('../config/index')
 const User = require("../models/userFaceModel")
-var _ = require("lodash");
-var express = require("express");
-var router = express.Router();
+
 var jwt = require('jsonwebtoken');
-
-var passport = require("passport");
 var passportJWT = require("passport-jwt");
-
 var ExtractJwt = passportJWT.ExtractJwt;
-
-
 var jwtOptions = {}
 jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 jwtOptions.secretOrKey = config.JWT_SECRET;
@@ -37,21 +29,6 @@ exports.signin = async (req, res, next) => {
     res.status(401).json({ message: "invalid credentials" });
   }
 }
-
-router.get("/secret", passport.authenticate('jwt', { session: false }), function (req, res) {
-  res.json({ message: "Success!" }); //non session because we use jwt
-});
-
-router.get("/secretDebug",
-  function (req, res, next) {
-    console.log(req.get('Authorization'));
-    next();
-  }, function (req, res) {
-    res.json("debugging");
-  });
-
-
-
 /* exports.signin = async (req, res, next) => {
     try {
         const { password ,user_id} = req.body;

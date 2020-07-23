@@ -5,7 +5,7 @@ const authentication = require('../middleware/authenticationHandler');
 const authorization = require('../middleware/authorizationHandler');
 
 const router = express.Router()
-router.post('/check', [
+router.post('/', [
     body('password').not().isEmpty().withMessage('Field password is required')
   ], userFaceController.signin);
 /* router.post('/signin',

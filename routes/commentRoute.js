@@ -1,11 +1,11 @@
 const express = require('express')
 const router = express.Router()
 const commentController = require('../controllers/commentController')
-const postController = require('../controllers/postController')
+const authentication = require('../middleware/authenticationHandler');
 
 router.post('/insert', commentController.insertComment)
 router.post('/delete', commentController.deleteComment)
-router.get('/find/:user_id', commentController.findUserComment)
+router.get('/find/:user_id', authentication.isLoggedIn, commentController.findUserComment)
 //GET localhost:3000/api/post/xxxxxxxxxxx
 // router.get('/:id', postController.getPostById)
 // router.get('/tag/:id', postController.getTags)

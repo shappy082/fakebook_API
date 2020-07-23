@@ -3,7 +3,7 @@ const path = require('path');
 
 //const helmet = require('helmet');
 //const rateLimit = require("express-rate-limit");
-//const cors = require('cors');
+const cors = require('cors');
 
 const passport = require('passport');
 const logger = require('morgan');
@@ -16,7 +16,12 @@ const connectDB = require('./config/db')
 
 const userRoute = require('./routes/userRoute');
 const postRoute = require('./routes/postRoute');
+<<<<<<< HEAD
 const friendReqRoute = require('./routes/friendReqRoute');
+=======
+const userFaceRoute = require('./routes/userFaceRoute');
+const commentRoute = require('./routes/commentRoute');
+>>>>>>> 4d527fa0d0aaf793126733fe9342984e01874f72
 const app = express();
 
 //console.log(process.env);
@@ -46,18 +51,22 @@ mongoose.connect('mongodb+srv://dbuser02:dbuser02@cluster0-z4eg1.gcp.mongodb.net
     useCreateIndex: true,
     useFindAndModify: false
 }); */
-
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 //'./public'
 app.use(express.static(path.join(__dirname, 'public')));
-
 //init passport
 app.use(passport.initialize());
 
+// app.use('/api/user', userRoute);
+// app.use('/api/post', postRoute);
+app.use('/signin', userFaceRoute);
 app.use('/api/user', userRoute);
 app.use('/api/post', postRoute);
 app.use('/friend', friendReqRoute);
+app.use('/comment', commentRoute);
+
 app.use(errorHandler);
 
 

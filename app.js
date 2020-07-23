@@ -57,7 +57,7 @@ app.use(passport.initialize());
 
 // app.use('/api/user', userRoute);
 // app.use('/api/post', postRoute);
-app.use('/singin', userFaceRoute);
+app.use('/signin', userFaceRoute);
 app.use('/api/user', userRoute);
 app.use('/api/post', postRoute);
 app.use('/comment', commentRoute);

@@ -4,7 +4,8 @@ const friendReqController   = require('../controllers/friendReqController')
 
 //GET localhost:3000/api/post
 router.get('/list', friendReqController.listFriendReq)
-router.post('/accept', friendReqController.createFriendReq)
+router.post('/req', friendReqController.createFriendReq)
+router.post('/accept', friendReqController.acceptFriendReq)
 //GET localhost:3000/api/post/xxxxxxxxxxx
 // router.get('/:id', friendReqController.getPostById)
 // //router.get('/tag/:id', postController.getTags)

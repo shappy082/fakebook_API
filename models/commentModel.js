@@ -7,9 +7,10 @@ const schema = new Schema({
   comment: { type: String, required: true },
   time_stamp: { type: Date, default: Date.now },
   count_like: { type: Number, default: 0 },
-  reply: { type: Array }
-}, {
-  collection: 'Comment'
+  reply: [String]
+},{
+  collection: 'Comment',
+  versionKey: false
 });
 
 const comment = mongoose.model('Comment', schema);

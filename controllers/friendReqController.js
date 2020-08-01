@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 //const Post = require('../models/postModel');
 const FriendRequest = require("../models/friendRequestModel");
+const User = require("../models/userFaceModel");
 
 module.exports.listFriendReq = async function (req, res, next) {
   try {
@@ -15,59 +16,65 @@ module.exports.listFriendReq = async function (req, res, next) {
 };
 
 module.exports.createFriendReq = async (req, res) => {
-  console.log(req.body);
-  const { user_id, user_id_req, flag_submit } = req.body;
-  // console.log(`user_id : ${user_id}`);
-  let post = new FriendRequest({
+  const { user_id, user_id_req } = req.body;
+  const checkExist = await FriendRequest.findOne({
     user_id: user_id,
     user_id_req: user_id_req,
-    flag_submit: flag_submit,
   });
-
-  try {
-    await post.save();
-    res.status(201).json({ data: post, success: true });
-  } catch (err) {
-    res.status(500).json({
-      errors: { err },
+  // console.log("checkExist", checkExist);
+  if (checkExist !== null) {
+    res.status(409).json({ errors: "Request is already exist!" });
+  } else {
+    let request = new FriendRequest({
+      user_id: user_id,
+      user_id_req: user_id_req,
     });
+    try {
+      await request.save();
+      res.status(201).json({ success: true });
+    } catch (err) {
+      res.status(500).json({
+        errors: { err },
+      });
+    }
   }
 };
 
 module.exports.acceptFriendReq = async (req, res) => {
   try {
-    //const { id } = req.params;
-    const { user_id, user_id_req, flag_submit } = req.body;
+    const { user_id, user_id_req } = req.body;
     console.log(req.body);
-    // console.log(`user_id : ${user_id}`);
-    // console.log(`user_id_req : ${user_id_req}`);
-    // console.log(`flag_submit : ${flag_submit}`);
     const post = await FriendRequest.updateOne(
       {
         user_id: user_id,
         user_id_req: user_id_req,
       },
       {
-        flag_submit: flag_submit,
+        flag_submit: 1,
       }
     );
-    console.log(post)
     if (post.nModified === 0) {
       throw new Error("Cannot update");
     } else {
+      const user = await User.findOneAndUpdate(
+        { user_id: user_id },
+        {
+          $push: {
+            friends: user_id_req,
+          },
+        },
+        {
+          returnOriginal: false,
+        }
+      );
       res.status(201).json({
-        message: "Update completed",
-        success: true,
+        success: true
       });
     }
   } catch (err) {
     res.status(500).json({
-      error: [
-        {
-          code: 500,
-          message: err.message,
-        },
-      ],
+      message: err.message,
+      success: false,
     });
   }
 };

@@ -1,8 +1,10 @@
 const express = require('express')
 const router = express.Router()
 const friendReqController   = require('../controllers/friendReqController')
+const userFaceController = require("../controllers/userFaceController");
 
 //GET localhost:3000/api/post
+router.get('/list/:user_id', userFaceController.friendList)
 router.get('/list', friendReqController.listFriendReq)
 router.post('/req', friendReqController.createFriendReq)
 router.post('/accept', friendReqController.acceptFriendReq)

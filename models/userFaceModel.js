@@ -8,6 +8,7 @@ const userSchema = Schema(
     password: { type: String, required: true, trim: true },
     name: { type: String, required: true },
     dob: { type: Date },
+    friends: [Number],
   },
   {
     collection: "User",

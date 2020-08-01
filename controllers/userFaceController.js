@@ -64,3 +64,13 @@ module.exports.signup = async (req, res) => {
     }
   });
 };
+
+module.exports.friendList = async (req, res) => {
+  const { user_id } = req.params;
+  const user = await User.findOne({ user_id: user_id });
+  res.status(200).json({
+    success: true,
+    found: user.friends.length,
+    data: user.friends,
+  });
+};

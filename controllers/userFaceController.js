@@ -28,10 +28,10 @@ module.exports.signin = async (req, res) => {
 module.exports.signup = async (req, res) => {
   const { username, password, name, dob } = req.body;
   //count all user
-  await User.find().countDocuments(async function (err, count) {
-    if (err) {
+  await User.find().countDocuments(async function (error, count) {
+    if (error) {
       res.status(500).json({
-        errors: { err },
+        errors: { error },
       });
     }
     let newUser = new User({
@@ -67,10 +67,26 @@ module.exports.signup = async (req, res) => {
 
 module.exports.friendList = async (req, res) => {
   const { user_id } = req.params;
-  const user = await User.findOne({ user_id: user_id });
-  res.status(200).json({
-    success: true,
-    found: user.friends.length,
-    data: user.friends,
-  });
+  try {
+    const user = await User.findOne({ user_id: user_id });
+    if (user !== null) {
+      //found
+      res.status(200).json({
+        success: true,
+        found: user.friends.length,
+        data: user.friends,
+      });
+    } else {
+      //not found
+      res.status(200).json({
+        success: true,
+        found: 0,
+        data: null,
+      });
+    }
+  } catch (err) {
+    res.status(500).json({
+      errors: { err },
+    });
+  }
 };

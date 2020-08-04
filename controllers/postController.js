@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 const Post = require('../models/postModel');
 const Comment = require('../models/commentModel');
 
-module.exports.index = async function (req, res , next) {
-    
+module.exports.index = async function (req, res, next) {
+
     try {
-             // select * from post; 
+        // select * from post; 
         const posts = await Post.find();
         res.status(200).json({
             data: posts,
@@ -13,8 +13,8 @@ module.exports.index = async function (req, res , next) {
         });
 
     } catch (err) {
-        next(err); 
-     }
+        next(err);
+    }
 }
 
 module.exports.getComments = async function (req, res) {
@@ -60,7 +60,8 @@ module.exports.getTags = async function (req, res, next) {
                     code: 500,
                     message: err.message
                 }]
-            });
+            }
+        );
     }
 }
 

@@ -56,15 +56,20 @@ module.exports.acceptFriendReq = async (req, res) => {
     if (post.nModified === 0) {
       throw new Error("Cannot update");
     } else {
-      const user = await User.findOneAndUpdate(
+      await User.findOneAndUpdate(
         { user_id: user_id },
         {
           $push: {
             friends: user_id_req,
           },
-        },
+        }
+      );
+      await User.findOneAndUpdate(
+        { user_id: user_id_req },
         {
-          returnOriginal: false,
+          $push: {
+            friends: user_id,
+          },
         }
       );
       res.status(201).json({
